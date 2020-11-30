@@ -1,0 +1,55 @@
+<div fxFlex="100" fxLayout="column">
+    <div>
+        <mat-toolbar color="primary" class="inbox-toolbar">
+            <button mat-icon-button matTooltip="Add User" (click)="addUser()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="mat-box-shadow margin-333 scroll-sec">
+            <ngx-datatable #myTable class="material bg-white" [columnMode]="'flex'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="70" [rows]="rows"
+                [messages]="{'emptyMessage':'No data', 'totalMessage':'Total', 'selectedMessage':'Selected'}">
+
+                <ngx-datatable-column name="Firstname" [flexGrow]="0.2">
+                    <ng-template let-column="column" ngx-datatable-header-template>Firstname</ng-template>
+                    <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;">{{ row.firstname }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Lastname" [flexGrow]="0.2">
+                    <ng-template let-column="column" ngx-datatable-header-template>Lastname</ng-template>
+                    <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;">{{ row.lastname }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Email" [flexGrow]="0.6">
+                    <ng-template let-column="column" ngx-datatable-header-template>Email</ng-template>
+                    <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;">{{ row.email }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Is Admin" [flexGrow]="0.2">
+                    <ng-template let-column="column" ngx-datatable-header-template>Is Admin</ng-template>
+                    <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;">{{row.admin }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="actions" [flexGrow]="0.3">
+                    <ng-template let-column="column" ngx-datatable-header-template>Actions</ng-template>
+                    <ng-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;" class="edit-delete-sec">
+                            <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="delete(row.userId)"
+                                matTooltip="Delete">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
