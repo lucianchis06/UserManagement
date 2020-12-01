@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.entities;
 
 import java.util.Set;
 import java.util.UUID;
@@ -12,19 +12,19 @@ public class Category {
 	
 	@Id
 	@org.hibernate.annotations.Type(type="uuid-char")
-	private UUID groupId;
+	private UUID categoryId;
 	
 	private String name;
 	
 	@OneToMany(mappedBy = "category")
 	Set<UserCategory> users;
 
-	public UUID getGroupId() {
-		return groupId;
+	public UUID getCategoryId() {
+		return categoryId;
 	}
 
-	public void setGroupId(UUID groupId) {
-		this.groupId = groupId;
+	public void setCategoryId(UUID groupId) {
+		this.categoryId = groupId;
 	}
 
 	public String getName() {

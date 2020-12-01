@@ -1,38 +1,28 @@
-package com.example.demo.entities;
+package com.example.demo.models;
 
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.example.demo.entities.UserCategory;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-@Entity
-public class User {
-
-	@Id
-	@org.hibernate.annotations.Type(type="uuid-char")
+public class UserModel {
+	
 	private UUID userId;
 
 	private String firstname;
 	
 	private String lastname;
 	
-	@Column(unique = true)
 	private String email;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	private boolean isAdmin;
 	
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
-	@NotFound(action = NotFoundAction.IGNORE)
-	Set<UserCategory> categories;
+	Set<UserCategoryModel> categories;
 	
 	public UUID getUserId() {
 		return userId;
@@ -82,12 +72,11 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public Set<UserCategory> getCategories() {
+	public Set<UserCategoryModel> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<UserCategory> categories) {
+	public void setCategories(Set<UserCategoryModel> categories) {
 		this.categories = categories;
 	}
-	
 }

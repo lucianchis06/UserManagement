@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from "@angular/material";
-import { GroupModel } from "app/shared/models/group.model";
+import { CategoryModel } from "app/shared/models/category.model";
 
 export interface GroupData {
-    group: GroupModel;
+    group: CategoryModel;
     title: string;
 }
 

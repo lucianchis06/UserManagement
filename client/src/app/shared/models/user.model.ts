@@ -1,4 +1,4 @@
-import { UserGroupModel } from "./usergroup.model";
+import { UserCategoryModel } from "./usercategory.model";
 
 export interface UserModel {
     userId: string;
@@ -7,5 +7,5 @@ export interface UserModel {
     firstname: string;
     lastname: string;
     isAdmin: boolean;
-    categories: UserGroupModel[];
+    categories: UserCategoryModel[];
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { GroupModel } from "app/shared/models/group.model";
+import { CategoryModel } from "app/shared/models/category.model";
 import { AppConfirmService } from "app/shared/services/app-confirm/app-confirm.service";
 import { GroupData, GroupModalComponent } from "./group-modal.component";
 
@@ -12,7 +12,7 @@ import { GroupData, GroupModalComponent } from "./group-modal.component";
 })
 export class GroupsComponent implements OnInit {
     
-    public rows : GroupModel[];
+    public rows : CategoryModel[];
 
     constructor(
         private _http: HttpClient,
@@ -28,7 +28,7 @@ export class GroupsComponent implements OnInit {
     }
 
     getAll() {
-        this._http.get<GroupModel[]>(this._baseUrl + 'groups/all').subscribe(data => this.rows = data);
+        this._http.get<CategoryModel[]>(this._baseUrl + 'categories/all').subscribe(data => this.rows = data);
     }
 
     delete(id) {
@@ -36,7 +36,7 @@ export class GroupsComponent implements OnInit {
         const text = 'Do you want to delete this group?';
         this._confirmService.confirm({ title: title, message: text }).subscribe((result) => {
             if (result === true) {
-                this._http.delete(this._baseUrl + 'groups/' + id).subscribe(data => this.getAll());
+                this._http.delete(this._baseUrl + 'categories/' + id).subscribe(data => this.getAll());
             }
         });
     }
@@ -48,7 +48,7 @@ export class GroupsComponent implements OnInit {
                 title: "Add Group",
                 group: {
                     name: ""
-                } as GroupModel
+                } as CategoryModel
             }
         });
 
@@ -56,7 +56,7 @@ export class GroupsComponent implements OnInit {
             if (result) {
                 var cl = <GroupData>result;
 
-                this._http.post<GroupModel>(this._baseUrl + 'groups/add', cl.group).subscribe(data => this.getAll(), error => console.error(error));
+                this._http.post<CategoryModel>(this._baseUrl + 'categories/add', cl.group).subscribe(data => this.getAll(), error => console.error(error));
             }
         });    
     }

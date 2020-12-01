@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.models.Category;
-import com.example.demo.models.UserCategory;
+import com.example.demo.entities.Category;
+import com.example.demo.entities.UserCategory;
 import com.example.demo.repos.GroupRepository;
 import com.example.demo.repos.UserGroupRepository;
 
 @RestController
-@RequestMapping(path="/groups")
-public class GroupsController {
+@RequestMapping(path="/categories")
+public class CategoriesController {
 	
 	@Autowired
 	private GroupRepository repo;
 	
 	@Autowired
 	private UserGroupRepository userGroupRepo;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Category> getAll() {
@@ -37,7 +41,7 @@ public class GroupsController {
 	@PostMapping(path="/add")
 	public @ResponseBody Category add(@RequestBody Category category)
 	{
-		category.setGroupId(UUID.randomUUID());
+		category.setCategoryId(UUID.randomUUID());
 		repo.save(category);
 		return category;
 	}
