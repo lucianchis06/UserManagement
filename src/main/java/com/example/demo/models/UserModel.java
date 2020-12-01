@@ -3,7 +3,6 @@ package com.example.demo.models;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.demo.entities.UserCategory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
