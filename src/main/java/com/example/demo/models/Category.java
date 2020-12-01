@@ -34,4 +34,12 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Set<UserCategory> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<UserCategory> users) {
+		this.users = users;
+	}
 }

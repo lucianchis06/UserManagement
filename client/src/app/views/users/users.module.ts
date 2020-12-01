@@ -8,6 +8,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SharedModule } from "app/shared/shared.module";
 import { ColorPickerModule } from "ngx-color-picker/dist";
 import { QuillModule } from "ngx-quill/src/quill.module";
+import { UserModalComponent } from "./user-modal.component";
 import { UsersComponent } from "./users.component";
 
 
@@ -53,9 +54,12 @@ const userRoutes : Routes = [
         RouterModule.forChild(userRoutes)
     ],
     declarations: [
-        UsersComponent
+        UsersComponent,
+        UserModalComponent
     ],
-    entryComponents: [],
+    entryComponents: [
+        UserModalComponent
+    ],
     exports: []
 })
 export class UsersModule {

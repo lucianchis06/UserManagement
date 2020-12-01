@@ -1,7 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material";
 import { GroupModel } from "app/shared/models/group.model";
 import { AppConfirmService } from "app/shared/services/app-confirm/app-confirm.service";
+import { GroupData, GroupModalComponent } from "./group-modal.component";
 
 @Component({
     selector: 'groups',
@@ -15,7 +17,8 @@ export class GroupsComponent implements OnInit {
     constructor(
         private _http: HttpClient,
         @Inject('BASE_URL') private _baseUrl: string,
-        private _confirmService: AppConfirmService
+        private _confirmService: AppConfirmService,
+        private _dialog: MatDialog
     ) {
         
     }
@@ -36,5 +39,25 @@ export class GroupsComponent implements OnInit {
                 this._http.delete(this._baseUrl + 'groups/' + id).subscribe(data => this.getAll());
             }
         });
+    }
+
+    add() {
+        const dialogRef = this._dialog.open(GroupModalComponent, {
+            width: '700px',
+            data: <GroupData>{
+                title: "Add Group",
+                group: {
+                    name: ""
+                } as GroupModel
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                var cl = <GroupData>result;
+
+                this._http.post<GroupModel>(this._baseUrl + 'groups/add', cl.group).subscribe(data => this.getAll(), error => console.error(error));
+            }
+        });    
     }
 }

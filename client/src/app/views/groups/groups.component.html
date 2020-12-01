@@ -1,7 +1,7 @@
 <div fxFlex="100" fxLayout="column">
     <div>
         <mat-toolbar color="primary" class="inbox-toolbar">
-            <button mat-icon-button matTooltip="Add Group" (click)="addGroup()">
+            <button mat-icon-button matTooltip="Add Group" (click)="add()">
                 <mat-icon>add</mat-icon>
             </button>
         </mat-toolbar>
@@ -10,14 +10,21 @@
                 [footerHeight]="50" [rowHeight]="70" [rows]="rows"
                 [messages]="{'emptyMessage':'No data', 'totalMessage':'Total', 'selectedMessage':'Selected'}">
 
-                <ngx-datatable-column name="Name" [flexGrow]="0.7">
+                <ngx-datatable-column name="Name" [flexGrow]="0.4">
                     <ng-template let-column="column" ngx-datatable-header-template>Name</ng-template>
                     <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
                         <div style="padding-top:10px;">{{ row.name }}</div>
                     </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="actions" [flexGrow]="0.3">
+                <ngx-datatable-column name="User Count" [flexGrow]="0.4">
+                    <ng-template let-column="column" ngx-datatable-header-template>User Count</ng-template>
+                    <ng-template let-rowIndex="row" let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-top:10px;">{{ row.users ? row.users.length : 0 }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="actions" [flexGrow]="0.2">
                     <ng-template let-column="column" ngx-datatable-header-template>Actions</ng-template>
                     <ng-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
                         <div style="padding-top:10px;" class="edit-delete-sec">

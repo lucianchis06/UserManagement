@@ -8,6 +8,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SharedModule } from "app/shared/shared.module";
 import { ColorPickerModule } from "ngx-color-picker/dist";
 import { QuillModule } from "ngx-quill/src/quill.module";
+import { GroupModalComponent } from "./group-modal.component";
 import { GroupsComponent } from "./groups.component";
 
 
@@ -53,9 +54,12 @@ const accountRoutes : Routes = [
         RouterModule.forChild(accountRoutes)
     ],
     declarations: [
-        GroupsComponent
+        GroupsComponent,
+        GroupModalComponent
     ],
-    entryComponents: [],
+    entryComponents: [
+        GroupModalComponent
+    ],
     exports: []
 })
 export class GroupsModule {

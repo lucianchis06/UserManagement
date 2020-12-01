@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,12 @@ public class UsersController {
 	@Autowired
 	private UserRepository repo;
 	
+	private BCryptPasswordEncoder bCrypt;
+	
+	public UsersController(BCryptPasswordEncoder bcryptPasswordEncoder) {
+		this.bCrypt = bcryptPasswordEncoder;
+	}
+	
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAll() {
 	    // This returns a JSON or XML with the users
@@ -34,6 +41,7 @@ public class UsersController {
 	public @ResponseBody User add(@RequestBody User user)
 	{
 		user.setUserId(UUID.randomUUID());
+		user.setPassword(this.bCrypt.encode(user.getPassword()));
 		repo.save(user);
 		return user;
 	}

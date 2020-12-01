@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+
+<div mat-dialog-content>
+
+    <div fxLayout="row wrap" style="padding-top: 20px;">
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Group name" [(ngModel)]="data.group.name">
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-xs="50">
+
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions layout="row" layout-fill layout-align="center center">
+    <span fxFlex></span>
+
+    <button mat-raised-button color="basic" style="background-color: grey; color:white;" [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+    <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+</div>
