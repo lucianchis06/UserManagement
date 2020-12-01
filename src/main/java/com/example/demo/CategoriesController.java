@@ -14,42 +14,61 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Category;
 import com.example.demo.entities.UserCategory;
+import com.example.demo.models.BaseResponse;
+import com.example.demo.models.GeneralResponse;
+import com.example.demo.models.ResponseType;
 import com.example.demo.repos.GroupRepository;
 import com.example.demo.repos.UserGroupRepository;
 
 @RestController
-@RequestMapping(path="/categories")
+@RequestMapping(path = "/categories")
 public class CategoriesController {
-	
+
 	@Autowired
 	private GroupRepository repo;
-	
+
 	@Autowired
 	private UserGroupRepository userGroupRepo;
-	
-	@GetMapping(path="/all")
+
+	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<Category> getAll() {
-	    // This returns a JSON or XML with the users
+		// This returns a JSON or XML with the users
 		Iterable<Category> list = repo.findAll();
 		return list;
 	}
-	
-	@PostMapping(path="/add")
-	public @ResponseBody Category add(@RequestBody Category category)
-	{
-		category.setCategoryId(UUID.randomUUID());
-		repo.save(category);
-		return category;
+
+	@PostMapping(path = "/add")
+	public @ResponseBody GeneralResponse<Category> add(@RequestBody Category category) {
+		GeneralResponse<Category> response = new GeneralResponse<Category>();
+		try {
+			category.setCategoryId(UUID.randomUUID());
+			repo.save(category);
+			response.setData(category);
+			return response;
+		} catch (Exception ex) {
+			response.setType(ResponseType.Exception);
+			response.setMessage(ex.toString());
+			return response;
+		}
+
 	}
-	
-	@DeleteMapping(path="/{id}")
-	public void delete(@PathVariable String id) {
-		
-		UUID categoryId = UUID.fromString(id);
-		
-		Iterable<UserCategory> userCategories = userGroupRepo.findByCategoryId(categoryId);
-		userGroupRepo.deleteAll(userCategories);
-		
-		repo.deleteById(categoryId);
+
+	@DeleteMapping(path = "/{id}")
+	public BaseResponse delete(@PathVariable String id) {
+		BaseResponse response = new BaseResponse();
+		try {
+			UUID categoryId = UUID.fromString(id);
+
+			Iterable<UserCategory> userCategories = userGroupRepo.findByCategoryId(categoryId);
+			userGroupRepo.deleteAll(userCategories);
+
+			repo.deleteById(categoryId);
+
+			return response;
+		} catch (Exception ex) {
+			response.setType(ResponseType.Exception);
+			response.setMessage(ex.toString());
+			return response;
+		}
 	}
 }
